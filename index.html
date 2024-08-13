@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Additional styles for smooth transition and positioning */
+      #scrollMessage {
+        display: none; /* Initially hidden */
+        position: absolute; /* Absolute positioning within #ShowTime */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Center exactly */
+        color: white;
+        font-size: 2.25rem; /* xl size (text-4xl in Tailwind) */
+        text-align: center;
+        z-index: 10; /* Ensure it's above other content */
+      }
+      .fade-in {
+        opacity: 0;
+        transition: opacity 1s ease-out;
+      }
+      .fade-in.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-black">
+    <div>
+      <div
+        class="flex justify-center items-center mt-40 relative transition-opacity duration-1000 ease-out opacity-0 hover:opacity-100"
+        id="Start"
+      >
+        <div>
+          <button><h1 class="text-white z-20 mt-40">Click Here</h1></button>
+        </div>
+        <div class="absolute -z-10">
+          <img
+            class="h-[500px]"
+            src="./pexels-junior-teixeira-1064069-2047905.jpg"
+            alt="n"
+          />
+        </div>
+      </div>
+      <div
+        class="relative flex justify-center items-center min-h-screen transition-opacity duration-1000 ease-out"
+        id="ShowTime"
+      >
+        <video
+          id="video"
+          class="w-full h-full object-cover"
+          autoplay
+          muted
+          preload="auto"
+        >
+          <source src="./MacBook Pro M3 Reveal (4K).mp4" type="video/mp4" />
+        </video>
+        <div id="scrollMessage" class="fade-in">
+          <h1>Scroll Down ↓</h1>
+        </div>
+      </div>
+      <div
+        class="text-white min-h-screen pt-[400px] flex justify-center items-center transition-opacity duration-1000 ease-out opacity-0 hover:opacity-100"
+        id="Statement"
+      >
+        <h1 class="text-xl text-center">
+          Designing an Incredible World Beyond Thinking
+        </h1>
+        <p class="text-center">@rushikeshwayal</p>
+      </div>
+    </div>
+
+    <script>
+      const button = document.querySelector('button');
+      const start = document.getElementById('Start');
+      const showTime = document.getElementById('ShowTime');
+      const statement = document.getElementById('Statement');
+      const video = document.getElementById('video');
+      const scrollMessage = document.getElementById('scrollMessage');
+
+      // Initially hide the "ShowTime" and "Statement" sections
+      showTime.style.display = 'none';
+      statement.style.display = 'none';
+
+      // Event listener for the button click
+      button.addEventListener('click', () => {
+        start.style.display = 'none';
+        showTime.style.display = 'block';
+        statement.style.display = 'block';
+      });
+
+      // Event listener for when the video ends
+      video.addEventListener('ended', () => {
+        // Replace entire content of showTime with the scroll message
+        scrollMessage.style.display = 'block';
+        // Trigger the fade-in effect
+        setTimeout(() => {
+          scrollMessage.classList.add('show');
+        }, 100); // Delay to ensure display change takes effect
+      });
+    </script>
+  </body>
+</html>
